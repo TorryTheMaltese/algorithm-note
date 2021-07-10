@@ -41,7 +41,10 @@ def is_correct(string):
                     stack_tmp.pop()
                 else:
                     return False
-    return True
+    if len(stack_tmp) == 0:
+        return True
+    else:
+        return False
 
 
 def check_what_is_correct(u, v):
@@ -52,16 +55,11 @@ def check_what_is_correct(u, v):
     if first and second:
         answer = u + v
     elif first:
-        answer = u
         u_tmp, v_tmp = separate_string(v)
-        answer += check_what_is_correct(u_tmp, v_tmp)
+        answer = u + check_what_is_correct(u_tmp, v_tmp)
     elif not first:
-        answer = '('
         u_tmp, v_tmp = separate_string(v)
-        answer += check_what_is_correct(u_tmp, v_tmp)
-        answer += ')'
-        answer += reverse_string(u[1:-1])
-
+        answer = '(' + check_what_is_correct(u_tmp, v_tmp) + ')' + reverse_string(u[1:-1])
     return answer
 
 
